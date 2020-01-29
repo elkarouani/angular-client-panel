@@ -30,4 +30,8 @@ export class ClientService {
       })
     );
   }
+
+  newClient(client: Client) {
+    this._clients_collection.add(client);
+  }
 }

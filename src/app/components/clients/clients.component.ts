@@ -18,4 +18,8 @@ export class ClientsComponent implements OnInit {
       console.log(this._clients);
     });
   }
+
+  get clients() {
+    return this._clients;
+  }
 }

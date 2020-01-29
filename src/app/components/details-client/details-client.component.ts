@@ -12,6 +12,7 @@ import { Client } from "src/app/models/client";
 export class DetailsClientComponent implements OnInit {
   _id: string;
   _client: Client;
+  _showBalance: boolean = false;
 
   constructor(
     private clientService: ClientService,
@@ -30,7 +31,28 @@ export class DetailsClientComponent implements OnInit {
     return this._client;
   }
 
+  set client(value) {
+    this._client = value;
+  }
+
   get id() {
     return this._id;
+  }
+
+  get showBalance() {
+    return this._showBalance;
+  }
+
+  set showBalance(value) {
+    this._showBalance = value;
+  }
+
+  onSubmit() {
+    this.client.id = this._id;
+    this.clientService.updateClient(this.client);
+    this.flashMessage.show("Balance updated !", {
+      cssClass: "alert-warning",
+      timeout: 4000
+    });
   }
 }

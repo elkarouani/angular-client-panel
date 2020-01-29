@@ -14,7 +14,7 @@ export class ClientsComponent implements OnInit {
   constructor(private clientService: ClientService) {}
 
   ngOnInit() {
-    this.clientService.getClient().subscribe(clients => {
+    this.clientService.getClients().subscribe(clients => {
       this._clients = clients;
       this._total = this._clients.reduce((total, client) => {
         return total + client.balance;

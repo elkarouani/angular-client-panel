@@ -27,7 +27,7 @@
           <td>{{ client.phone }}</td>
           <td>{{ client.balance | currency: "USD":"symbol" }}</td>
           <td class="text-right">
-            <a class="btn btn-info">
+            <a routerLink="/client/{{ client.id }}" class="btn btn-info">
               <i class="fa fa-info-circle" aria-hidden="true"></i>
             </a>
             &nbsp;

@@ -19,7 +19,7 @@ export class ClientService {
     this._clients_collection = this.firestore.collection("clients");
   }
 
-  getClient(): Observable<Client[]> {
+  getClients(): Observable<Client[]> {
     return this._clients_collection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -33,5 +33,9 @@ export class ClientService {
 
   newClient(client: Client) {
     this._clients_collection.add(client);
+  }
+
+  getClient(id: string): Observable<Client> {
+    return this._clients_collection.doc(id).valueChanges();
   }
 }

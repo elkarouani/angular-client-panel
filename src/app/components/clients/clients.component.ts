@@ -9,17 +9,24 @@ import { Client } from "src/app/models/client";
 })
 export class ClientsComponent implements OnInit {
   _clients: Client[];
+  _total: number;
 
   constructor(private clientService: ClientService) {}
 
   ngOnInit() {
     this.clientService.getClient().subscribe(clients => {
       this._clients = clients;
-      console.log(this._clients);
+      this._total = this._clients.reduce((total, client) => {
+        return total + client.balance;
+      }, 0);
     });
   }
 
   get clients() {
     return this._clients;
+  }
+
+  get total() {
+    return this._total;
   }
 }

@@ -1,8 +1,33 @@
 import { Injectable } from "@angular/core";
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from "angularfire2/firestore";
+import { Client } from "../models/client";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class ClientService {
-  constructor() {}
+  _clients_collection: AngularFirestoreCollection<Client>;
+  _client_document: AngularFirestoreDocument<Client>;
+
+  constructor(private firestore: AngularFirestore) {
+    this._clients_collection = this.firestore.collection("clients");
+  }
+
+  getClient(): Observable<Client[]> {
+    return this._clients_collection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Client;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
 }

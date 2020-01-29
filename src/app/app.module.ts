@@ -16,6 +16,10 @@ import { RegisterComponent } from "./components/register/register.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { ClientService } from "./services/client.service";
 import { AuthClientService } from "./services/auth-client.service";
+import { AngularFireModule } from "angularfire2";
+import { AngularFirestoreModule } from "angularfire2/firestore";
+import { AngularFireAuthModule } from "angularfire2/auth";
+import { environment } from "src/environments/environment";
 
 @NgModule({
   declarations: [
@@ -32,7 +36,13 @@ import { AuthClientService } from "./services/auth-client.service";
     RegisterComponent,
     NotFoundComponent
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
+  ],
   providers: [ClientService, AuthClientService],
   bootstrap: [AppComponent]
 })

@@ -43,4 +43,9 @@ export class ClientService {
     this._client_document = this._clients_collection.doc(client.id);
     this._client_document.update(client);
   }
+
+  deleteClient(id: string) {
+    this._client_document = this._clients_collection.doc(id);
+    this._client_document.delete();
+  }
 }

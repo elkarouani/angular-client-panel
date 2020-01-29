@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Client } from "src/app/models/client";
 import { ClientService } from "src/app/services/client.service";
 import { Router } from "@angular/router";
+import { FlashMessagesService } from "angular2-flash-messages";
 
 @Component({
   selector: "app-add-client",
@@ -17,7 +18,11 @@ export class AddClientComponent implements OnInit {
     balance: 0
   };
 
-  constructor(private clientService: ClientService, private route: Router) {}
+  constructor(
+    private clientService: ClientService,
+    private route: Router,
+    private flashMessage: FlashMessagesService
+  ) {}
 
   ngOnInit() {}
 
@@ -27,6 +32,10 @@ export class AddClientComponent implements OnInit {
 
   onSubmit() {
     this.clientService.newClient(this.client);
+    this.flashMessage.show("Client added successfully !", {
+      cssClass: "alert-primary",
+      timeout: 5000
+    });
     return this.route.navigate(["/"]);
   }
 }

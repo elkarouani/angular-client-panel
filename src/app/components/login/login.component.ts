@@ -62,4 +62,25 @@ export class LoginComponent implements OnInit {
         });
       });
   }
+
+  onLoginWithGoogle() {
+    this.authService
+      .loginWithGoogle()
+      .then(auth => {
+        if (auth) {
+          this.flashMessage.show("You are logged successfully", {
+            cssClass: "alert-success",
+            timeout: 5000
+          });
+
+          this.route.navigate(["/"]);
+        }
+      })
+      .catch(error => {
+        this.flashMessage.show(error.message, {
+          cssClass: "alert-danger",
+          timeout: 10000
+        });
+      });
+  }
 }

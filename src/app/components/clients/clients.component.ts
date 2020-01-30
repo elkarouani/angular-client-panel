@@ -4,6 +4,7 @@ import { Client } from "src/app/models/client";
 import { FlashMessagesService } from "angular2-flash-messages";
 import { Router } from "@angular/router";
 import swal from "sweetalert2";
+import { AuthClientService } from "src/app/services/auth-client.service";
 
 @Component({
   selector: "app-clients",
@@ -17,15 +18,18 @@ export class ClientsComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private flashMessage: FlashMessagesService,
-    private router: Router
+    private router: Router,
+    private authService: AuthClientService
   ) {}
 
   ngOnInit() {
-    this.clientService.getClients().subscribe(clients => {
-      this._clients = clients;
-      this._total = this._clients.reduce((total, client) => {
-        return total + client.balance;
-      }, 0);
+    this.authService.getAuth().subscribe(auth => {
+      this.clientService.getClients(auth.uid).subscribe(clients => {
+        this._clients = clients;
+        this._total = this._clients.reduce((total, client) => {
+          return total + client.balance;
+        }, 0);
+      });
     });
   }
 

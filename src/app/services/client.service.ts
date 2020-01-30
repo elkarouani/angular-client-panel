@@ -19,16 +19,19 @@ export class ClientService {
     this._clients_collection = this.firestore.collection("clients");
   }
 
-  getClients(): Observable<Client[]> {
-    return this._clients_collection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Client;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
+  getClients(user: string): Observable<Client[]> {
+    return this.firestore
+      .collection("clients", ref => ref.where("user", "==", user))
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Client;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
   }
 
   newClient(client: Client) {

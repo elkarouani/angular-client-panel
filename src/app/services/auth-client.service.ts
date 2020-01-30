@@ -36,4 +36,13 @@ export class AuthClientService {
   logOut() {
     this.fireauth.auth.signOut();
   }
+
+  register(email: string, password: string) {
+    return new Promise((resolve, reject) => {
+      this.fireauth.auth.createUserWithEmailAndPassword(email, password).then(
+        userData => resolve(userData),
+        error => reject(error)
+      );
+    });
+  }
 }

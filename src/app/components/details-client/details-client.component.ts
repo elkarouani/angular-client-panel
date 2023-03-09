@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ClientService } from "src/app/services/client.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { FlashMessagesService } from "angular2-flash-messages";
+// import { FlashMessagesService } from "angular2-flash-messages";
 import { Client } from "src/app/models/client";
 
 @Component({
@@ -18,14 +18,14 @@ export class DetailsClientComponent implements OnInit {
     private clientService: ClientService,
     private route: ActivatedRoute,
     private router: Router,
-    private flashMessage: FlashMessagesService
+    // private flashMessage: FlashMessagesService
   ) {}
 
   ngOnInit() {
-    this._id = this.route.snapshot.params["id"];
-    this.clientService.getClient(this._id).subscribe(client => {
-      this._client = client;
-    });
+    // this._id = this.route.snapshot.params["id"];
+    // this.clientService.getClient(this._id).subscribe(client => {
+    //   this._client = client;
+    // });
   }
 
   get client() {
@@ -51,19 +51,19 @@ export class DetailsClientComponent implements OnInit {
   onSubmit() {
     this.client.id = this._id;
     this.clientService.updateClient(this.client);
-    this.flashMessage.show("Balance updated !", {
-      cssClass: "alert-warning",
-      timeout: 4000
-    });
+    // this.flashMessage.show("Balance updated !", {
+    //   cssClass: "alert-warning",
+    //   timeout: 4000
+    // });
   }
 
   deleteClient() {
     if (confirm("Are you sure to delete this client ?")) {
       this.clientService.deleteClient(this._id);
-      this.flashMessage.show("Client deleted !", {
-        cssClass: "alert-danger",
-        timeout: 4000
-      });
+      // this.flashMessage.show("Client deleted !", {
+      //   cssClass: "alert-danger",
+      //   timeout: 4000
+      // });
       this.router.navigate(["/"]);
     }
   }

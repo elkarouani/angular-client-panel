@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthClientService } from "src/app/services/auth-client.service";
-import { FlashMessagesService } from "angular2-flash-messages";
+// import { FlashMessagesService } from "angular2-flash-messages";
 import { Router } from "@angular/router";
 
 @Component({
@@ -14,16 +14,16 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthClientService,
-    private flashMessage: FlashMessagesService,
+    // private flashMessage: FlashMessagesService,
     private route: Router
   ) {}
 
   ngOnInit() {
-    this.authService.getAuth().subscribe(auth => {
-      if (auth) {
-        return this.route.navigate(["/"]);
-      }
-    });
+    // this.authService.getAuth().subscribe(auth => {
+    //   if (auth) {
+    //     return this.route.navigate(["/"]);
+    //   }
+    // });
   }
 
   get email() {
@@ -47,19 +47,19 @@ export class LoginComponent implements OnInit {
       .login(this.email, this.password)
       .then(auth => {
         if (auth) {
-          this.flashMessage.show("You are logged successfully", {
-            cssClass: "alert-success",
-            timeout: 5000
-          });
+          // this.flashMessage.show("You are logged successfully", {
+          //   cssClass: "alert-success",
+          //   timeout: 5000
+          // });
 
           this.route.navigate(["/"]);
         }
       })
       .catch(error => {
-        this.flashMessage.show(error.message, {
-          cssClass: "alert-danger",
-          timeout: 10000
-        });
+        // this.flashMessage.show(error.message, {
+        //   cssClass: "alert-danger",
+        //   timeout: 10000
+        // });
       });
   }
 
@@ -68,19 +68,19 @@ export class LoginComponent implements OnInit {
       .loginWithGoogle()
       .then(auth => {
         if (auth) {
-          this.flashMessage.show("You are logged successfully", {
-            cssClass: "alert-success",
-            timeout: 5000
-          });
+          // this.flashMessage.show("You are logged successfully", {
+          //   cssClass: "alert-success",
+          //   timeout: 5000
+          // });
 
           this.route.navigate(["/"]);
         }
       })
       .catch(error => {
-        this.flashMessage.show(error.message, {
-          cssClass: "alert-danger",
-          timeout: 10000
-        });
+        // this.flashMessage.show(error.message, {
+        //   cssClass: "alert-danger",
+        //   timeout: 10000
+        // });
       });
   }
 }
